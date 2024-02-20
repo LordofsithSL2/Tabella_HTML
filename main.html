@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+</html>
+<head>
+    <title>Tabella</title>
+</head>
+<style>
+    body {
+        text-align: center;
+    }
+    td {
+        text-align: center;
+        padding: 60px;
+        background-color: rgb(84, 87, 190);
+    }
+    table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<script>
+    // Funzione dove creo tabella
+    function creaTabella(){
+        let tabella = document.getElementById("tabella");
+        for(i=0; i<6; i++){
+            let riga = document.createElement("tr");
+            tabella.appendChild(riga);
+            for(j=0; j<6; j++){
+                let cella = document.createElement("td");
+                riga.appendChild(cella);
+                if(j==0){
+                cella.addEventListener("click",function(event){this.style.backgroundColor = "grey"});
+                }
+            }
+        }
+    }
+    // Cancella tabella
+    function cancellaTabella(){
+        let tabella = document.getElementById("tabella");
+        let righe = tabella.getElementsByTagName("tr");
+        for(i=righe.length-1; i>=0; i--){
+            let celle = righe[i].getElementsByTagName("td");
+            if(celle[0].style.backgroundColor == "grey"){
+                tabella.removeChild(righe<[i]);
+        }
+    
+    }
+    }
+
+</script>
+
+<body>
+    <button type="button" onclick="creaTabella()">Crea tabella</button>
+    <button type="button" onclick="cancellaTabella()">Cancella tabella</button>
+    <table id="tabella"></table>
+</body>
+</html>
+
+
