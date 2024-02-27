@@ -21,38 +21,82 @@
 <script>
     // Funzione dove creo tabella
     function creaTabella(){
-        let tabella = document.getElementById("tabella");
-        for(i=0; i<6; i++){
+        let padre = document.getElementById("contenitore");
+        let tabella = document.createElement("table");
+        let numero_righe = document.getElementById("numero_righe").value;
+
+        tabella.id="tabella";
+        let numero_tabelle = document.getElementById("numero_tabelle").value;
+
+        for(i=0; i<numero_tabelle; i++){
             let riga = document.createElement("tr");
+            riga.id="test" + i;
             tabella.appendChild(riga);
-            for(j=0; j<6; j++){
+            for(j=0; j<numero_righe; j++){
                 let cella = document.createElement("td");
                 riga.appendChild(cella);
-                if(j==0){
+                if(j<numero_righe){
                 cella.addEventListener("click",function(event){this.style.backgroundColor = "grey"});
                 }
             }
         }
+        padre.appendChild(tabella);
     }
-    // Cancella tabella
-    function cancellaTabella(){
-        let tabella = document.getElementById("tabella");
-        let righe = tabella.getElementsByTagName("tr");
-        for(i=righe.length-1; i>=0; i--){
-            let celle = righe[i].getElementsByTagName("td");
-            if(celle[0].style.backgroundColor == "grey"){
-                tabella.removeChild(righe<[i]);
+
+    // Cancella righe
+function cancellaTabella(){
+    let tabella = document.getElementById("tabella");
+    let righe = tabella.getElementsByTagName("tr");
+    for(let i=righe.length-1; i>=0; i--){
+        let celle = righe[i].getElementsByTagName("td");
+        for(let j=0; j<celle.length; j++){
+            if(celle[j].style.backgroundColor == "grey"){
+                righe[i].remove();
+                break;
+            }
         }
-    
     }
+}
+
+function cancellaColonne(){
+    let tabella = document.getElementById("tabella");
+    let righe = tabella.getElementsByTagName("tr");
+    let colonneDaRimuovere = [];
+
+    // Trova le colonne da rimuovere
+    for(let i=0; i<righe.length; i++){
+        let celle = righe[i].getElementsByTagName("td");
+        for(let j=0; j<celle.length; j++){
+            if(celle[j].style.backgroundColor == "grey" && !colonneDaRimuovere.includes(j)){
+                colonneDaRimuovere.push(j);
+            }
+        }
     }
+
+    // Rimuovi le colonne
+    for(let i=0; i<righe.length; i++){
+        let celle = righe[i].getElementsByTagName("td");
+        for(let j=colonneDaRimuovere.length-1; j>=0; j--){
+            if(celle[colonneDaRimuovere[j]]){
+                celle[colonneDaRimuovere[j]].remove();
+            }
+        }
+    }
+}
 
 </script>
 
 <body>
+    <!-- Input -->
+    <input type="text" id="numero_tabelle"> Numero tabelle
+    <input type="text" id="numero_righe"> Numero righe
+    
+    <!-- Bottoni -->
     <button type="button" onclick="creaTabella()">Crea tabella</button>
-    <button type="button" onclick="cancellaTabella()">Cancella tabella</button>
-    <table id="tabella"></table>
+    <button type="button" onclick="cancellaTabella()">Cancella righe</button>
+    <button type="button" onclick="cancellaColonne()">Cancella colonne</button>
+
+    <div class = "contenitore" id = "contenitore"></div>
 </body>
 </html>
 
