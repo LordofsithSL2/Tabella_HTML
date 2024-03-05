@@ -36,7 +36,7 @@
                 let cella = document.createElement("td");
                 riga.appendChild(cella);
                 if(j<numero_righe){
-                cella.addEventListener("click",function(event){this.style.backgroundColor = "grey"});
+                cella.addEventListener("click",function(event){this.style.backgroundColor = "grey" if(this.style.backgroundColor == "grey"){}});
                 }
             }
         }
