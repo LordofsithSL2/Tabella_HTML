@@ -9,8 +9,22 @@
     }
     td {
         text-align: center;
+        border-radius: 5px;
+        border-width: 5px;
         padding: 60px;
+        border: 3px solid black; 
         background-color: rgb(84, 87, 190);
+        transition: all 0.3s ease
+    }
+    td:hover {
+        background-color: grey;
+        transition-duration: 1s;
+    }
+    .non-cliccabile {
+        background-color: rgb(84, 87, 190);
+    }
+    .non-cliccabile:hover {
+        background-color: red;
     }
     table {
         margin-left: auto;
@@ -28,19 +42,43 @@
         tabella.id="tabella";
         let numero_tabelle = document.getElementById("numero_tabelle").value;
 
-        for(i=0; i<numero_tabelle; i++){
-            let riga = document.createElement("tr");
-            riga.id="test" + i;
-            tabella.appendChild(riga);
-            for(j=0; j<numero_righe; j++){
-                let cella = document.createElement("td");
-                riga.appendChild(cella);
-                if(j<numero_righe){
-                cella.addEventListener("click",function(event){this.style.backgroundColor = "grey" if(this.style.backgroundColor == "grey"){}});
+        for(let i=0; i<numero_tabelle; i++){
+        let riga = document.createElement("tr");
+        riga.id="test" + i;
+        tabella.appendChild(riga);
+        for(let j=0; j<numero_righe; j++){
+           let cella = document.createElement("td");
+           cella.id="test" + j;
+           riga.appendChild(cella);
+           
+        if(!(riga.id == "test0" && cella.id == "test0") && (i == 0 )){
+            cella.addEventListener("click", function(event) {
+                // Sfondo grigio? ritorna default
+                if (this.style.backgroundColor == "grey") {
+                    this.style.backgroundColor = "rgb(84, 87, 190)";
+                } else {
+                    // Setta sfondo grigio
+                    this.style.backgroundColor = "grey";
                 }
-            }
+            });
         }
-        padre.appendChild(tabella);
+        if(!(riga.id == "test0" && cella.id == "test0") && (j == 0 )){
+            cella.addEventListener("click", function(event) {
+                // Sfondo grigio? ritorna default
+                if (this.style.backgroundColor == "grey") {
+                    this.style.backgroundColor = "rgb(84, 87, 190)";
+                } else {
+                    // Setta sfondo grigio
+                    this.style.backgroundColor = "grey";
+                }
+            });
+        } else {
+            
+            cella.classList.add("non-cliccabile");
+        }
+    }
+}
+padre.appendChild(tabella);
     }
 
     // Cancella righe
